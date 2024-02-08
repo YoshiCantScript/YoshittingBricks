@@ -1,4 +1,4 @@
-package com.example
+package com.YoshiCooking
 
 import androidx.appcompat.app.AppCompatActivity
 import com.lagradost.cloudstream3.TvType
@@ -15,6 +15,7 @@ class StreamingcommunityProvider : MainAPI() {
     override val hasMainPage = true
     override val mainPage = mainPageOf(
         "{name/browse/trending} to "Popolari"
-    
+    )
+}
  private val userAgent =
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
