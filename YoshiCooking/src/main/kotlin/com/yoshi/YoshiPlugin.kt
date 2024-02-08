@@ -1,4 +1,4 @@
-package com.YoshiCooking
+package com.yoshi
 
 import com.lagradost.cloudstream3.plugins.CloudstreamPlugin
 import com.lagradost.cloudstream3.plugins.Plugin
@@ -8,13 +8,13 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 
 @CloudstreamPlugin
-class YoshiCooking: Plugin() {
+class YoshiPlugin: Plugin() {
     var activity: AppCompatActivity? = null
 
     override fun load(context: Context) {
         activity = context as AppCompatActivity
         // All providers should be added in this manner
-        registerMainAPI(YoshiCantScript(this))
+        registerMainAPI(StreamingcommunityProvider())
 
         openSettings = { ctx ->
             val frag = BlankFragment(this)
