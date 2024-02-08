@@ -1,0 +1,21 @@
+[
+    {
+        "iconUrl": "https://streamingcommunity.li/img/logo.png",
+        "apiVersion": 1,
+        "repositoryUrl": "https://github.com/user/repo",
+        "fileSize": 19601,
+        "status": 1,
+        "language": "it",
+        "authors": [
+            "Red"
+        ],
+        "tvTypes": [
+            "TvSeries"
+        ],
+        "version": 2,
+        "internalName": "YoshiCooking",
+        "description": "My ass hurts",
+        "url": "https://raw.githubusercontent.com/user/repo/builds/YoshiCooking.cs3",
+        "name": "YoshiCooking"
+    }
+]

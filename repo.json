@@ -1,0 +1,8 @@
+{
+    "name": "YoshatBriks",
+    "description": "Shittah",
+    "manifestVersion": 1,
+    "pluginLists": [
+      "https://github.com/YoshiCantScript/YoshittingBricks/raw/builds/plugins.json"
+    ]
+  }
