@@ -22,13 +22,13 @@ cloudstream {
     * */
     status = 1
 
-    tvTypes = listOf("NSFW")
+    tvTypes = listOf("TvSeries")
 
     requiresResources = true
     language = "it"
 
     // random cc logo i found
-    iconUrl = "https://upload.wikimedia.org/wikipedia/commons/2/2f/Korduene_Logo.png"
+    iconUrl = "https://streamingcommunity.li/img/logo.png"
 }
 
 android {
