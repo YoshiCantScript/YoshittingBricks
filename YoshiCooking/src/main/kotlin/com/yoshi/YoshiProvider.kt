@@ -6,7 +6,7 @@ import com.lagradost.cloudstream3.MainAPI
 import com.lagradost.cloudstream3.MainPageData
 import com.lagradost.cloudstream3.SearchResponse
 
-open class StreamingcommunityProvider : MainAPI() {
+class StreamingcommunityProvider : MainAPI() {
     override var mainUrl = "https://streamingcommunity.li"
     private var cdnUrl = "https://cdn.streamingcommunity.li" // Images
     override var name = "StreamingCommunity"
