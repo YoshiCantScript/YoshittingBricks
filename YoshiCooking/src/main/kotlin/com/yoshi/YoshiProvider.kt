@@ -102,6 +102,33 @@ data class Props(
     @JsonProperty("titles") var titles: ArrayList<MainPageTitles> = arrayListOf(),
 )
 
+data class MainPageTitles(
+
+    @JsonProperty("id") var id: Int? = null,
+    @JsonProperty("slug") var slug: String? = null,
+    @JsonProperty("name") var name: String? = null,
+    @JsonProperty("type") var type: String? = null,
+    @JsonProperty("score") var score: String? = null,
+    @JsonProperty("sub_ita") var subIta: Int? = null,
+    @JsonProperty("last_air_date") var lastAirDate: String? = null,
+    @JsonProperty("seasons_count") var seasonsCount: Int? = null,
+    @JsonProperty("images") var images: ArrayList<Images> = arrayListOf()
+)
+
+data class Episodes(
+
+    @JsonProperty("id") var id: Int? = null,
+    @JsonProperty("number") var number: Int? = null,
+    @JsonProperty("name") var name: String? = null,
+    @JsonProperty("plot") var plot: String? = null,
+    @JsonProperty("duration") var duration: Int? = null,
+    @JsonProperty("scws_id") var scwsId: Int? = null,
+    @JsonProperty("season_id") var seasonId: Int? = null,
+    @JsonProperty("created_by") var createdBy: String? = null,
+    @JsonProperty("created_at") var createdAt: String? = null,
+    @JsonProperty("updated_at") var updatedAt: String? = null,
+    @JsonProperty("images") var images: ArrayList<Images> = arrayListOf()
+)
 
 // for loading links
 private data class LoadLinkData(
