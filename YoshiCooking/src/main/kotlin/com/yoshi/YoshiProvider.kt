@@ -37,7 +37,7 @@ class StreamingcommunityProvider : MainAPI() {
    
     
       
-    }
+    
     private val userAgent =
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
 
@@ -77,7 +77,7 @@ override suspend fun loadLinks(
         return true
     }
 
-} 
+
 
 
 
@@ -97,3 +97,4 @@ private data class Tokens(
     @JsonProperty("token1080p") var token1080p: String? = null,
     @JsonProperty("expires") var expires: String? = null
 )
+}
