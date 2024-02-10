@@ -99,8 +99,6 @@ class StreamingcommunityProvider : MainAPI() {
                 this.recommendations = recomm
                 this.tags = parsedJson.props.title.genres.mapNotNull { it.name }
                 addPoster(poster)
-                addRating(rating)
-                addTrailer(trailer)
             }
         } else {
             val data = LoadLinkData(
@@ -115,8 +113,7 @@ class StreamingcommunityProvider : MainAPI() {
                 this.recommendations = recomm
                 this.tags = parsedJson.props.title.genres.mapNotNull { it.name }
                 addPoster(poster)
-                addRating(rating)
-                addTrailer(trailer)
+                
             }
         }
     }
@@ -243,7 +240,6 @@ data class LoadTitle(
     @JsonProperty("last_air_date") var lastAirDate: String? = null,
     @JsonProperty("seasons_count") var seasonsCount: Int? = null,
     @JsonProperty("seasons") var seasons: ArrayList<Episodes> = arrayListOf(),
-    @JsonProperty("trailers") var trailers: ArrayList<Trailers> = arrayListOf(),
     @JsonProperty("images") var images: ArrayList<Images> = arrayListOf(),
     @JsonProperty("genres") var genres: ArrayList<Genres> = arrayListOf(),
     @JsonProperty("main_actors") var mainActors: ArrayList<MainActors> = arrayListOf(),
