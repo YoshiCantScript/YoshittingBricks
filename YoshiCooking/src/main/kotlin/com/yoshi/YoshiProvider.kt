@@ -66,6 +66,29 @@ override suspend fun loadLinks(
 
 } 
 
+private fun MainPageTitles.toSearchResult(): SearchResponse {
+        val title = this.name ?: "No title found!"
+        val isMovie = this.type?.contains("movie") ?: true
+        val link = LinkData(
+            id = this.id, slug = this.slug
+        ).toJson()
+
+        val posterUrl =
+            "$cdnUrl/images/" + this.images.filter { it.type == "poster" }.map { it.filename }
+                .firstOrNull()
+
+        return if (isMovie) {
+            newMovieSearchResponse(title, link, TvType.Movie) {
+                addPoster(posterUrl)
+            }
+        } else {
+            newTvSeriesSearchResponse(title, link, TvType.TvSeries) {
+                addPoster(posterUrl)
+            }
+        }
+    }
+
+
 override suspend fun search(query: String) List<SearchResponse> {
         val url = "$mainUrl/search"
         val soup = app.get(
@@ -77,12 +100,68 @@ override suspend fun search(query: String) List<SearchResponse> {
         return responseJson.props.titles.map { it.toSearchResult() }
     }
 
+ private fun Episodes.toEpisode(titleId: String, season: Int): Episode {
+        val data = LoadLinkData(
+            titleId = titleId, episodeId = this.id.toString(), scwsId = this.scwsId.toString()
+        ).toJson()
+
+        val epNum = this.number
+        val epTitle = this.name
+        val posterUrl =
+            "$cdnUrl/images/" + this.images.filter { it.type == "cover" }.map { it.filename }
+                .firstOrNull()
+        return Episode(data, epTitle, season, epNum, posterUrl = posterUrl)
+    }
+
 //For search
 
 data class SearchResponseJson(
     @JsonProperty("props") var props: Props = Props(),
 )
 
+data class Props(
+    @JsonProperty("titles") var titles: ArrayList<MainPageTitles> = arrayListOf(),
+)
+
+data class MainPageTitles(
+
+    @JsonProperty("id") var id: Int? = null,
+    @JsonProperty("slug") var slug: String? = null,
+    @JsonProperty("name") var name: String? = null,
+    @JsonProperty("type") var type: String? = null,
+    @JsonProperty("score") var score: String? = null,
+    @JsonProperty("sub_ita") var subIta: Int? = null,
+    @JsonProperty("last_air_date") var lastAirDate: String? = null,
+    @JsonProperty("seasons_count") var seasonsCount: Int? = null,
+    @JsonProperty("images") var images: ArrayList<Images> = arrayListOf()
+
+)
+
+data class Images(
+    @JsonProperty("filename") var filename: String? = null,
+    @JsonProperty("type") var type: String? = null,
+)
+
+data class RequestJson(
+    @JsonProperty("name") var name: String, @JsonProperty("genre") var genre: String
+
+
+)
+data class Episodes(
+
+    @JsonProperty("id") var id: Int? = null,
+    @JsonProperty("number") var number: Int? = null,
+    @JsonProperty("name") var name: String? = null,
+    @JsonProperty("plot") var plot: String? = null,
+    @JsonProperty("duration") var duration: Int? = null,
+    @JsonProperty("scws_id") var scwsId: Int? = null,
+    @JsonProperty("season_id") var seasonId: Int? = null,
+    @JsonProperty("created_by") var createdBy: String? = null,
+    @JsonProperty("created_at") var createdAt: String? = null,
+    @JsonProperty("updated_at") var updatedAt: String? = null,
+    @JsonProperty("images") var images: ArrayList<Images> = arrayListOf()
+
+)
 
 // for loading links
 private data class LoadLinkData(
