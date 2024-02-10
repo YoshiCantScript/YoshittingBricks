@@ -5,6 +5,9 @@ import com.lagradost.cloudstream3.TvType
 import com.lagradost.cloudstream3.MainAPI
 import com.lagradost.cloudstream3.MainPageData
 import com.lagradost.cloudstream3.SearchResponse
+import com.lagradost.cloudstream3.utils.AppUtils.parseJson
+import com.lagradost.cloudstream3.utils.AppUtils.toJson
+import org.json.JSONObject
 
 
 
@@ -22,3 +25,55 @@ class StreamingcommunityProvider : MainAPI() {
     
     private val userAgent =
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+
+override suspend fun loadLinks(
+        data: String,
+        isCasting: Boolean,
+        subtitleCallback: (SubtitleFile) -> Unit,
+        callback: (ExtractorLink) -> Unit
+    ): Boolean {
+        val dataJson = parseJson<LoadLinkData>(data)
+        val document = app.get(
+            "${this.mainUrl}/iframe/${dataJson.titleId}?episode_id=${dataJson.episodeId}",
+            referer = mainUrl,
+            headers = listOf("User-Agent" to userAgent)
+        ).document
+        val firstStageUrl = document.select("iframe").attr("src")
+        val documentVixcloud = app.get(
+            firstStageUrl, referer = mainUrl, headers = mapOf("User-Agent" to userAgent)
+        ).document.toString()
+        val test =
+            Regex("""window\.masterPlaylistParams = (\{[^}]+\})""").find(documentVixcloud)!!.groupValues[1].trim()
+                .replace("\n", " ").replace("'", "\"")
+        val tokens = parseJson<Tokens>(test)
+        val realUrl = "${
+            (firstStageUrl.substringBefore("?").replace("embed", "playlist"))
+        }?token=${tokens.token}&token360p=${tokens.token360p}&token480p=${tokens.token480p}&token720p=${tokens.token720p}&token1080p=${tokens.token1080p}&expires=${tokens.expires}&canCast=1&n=1"
+        callback.invoke(
+            ExtractorLink(
+                name,
+                name,
+                realUrl,
+                isM3u8 = true,
+                referer = mainUrl,
+                quality = Qualities.Unknown.value
+            )
+        )
+        return true
+    }
+
+}
+
+// for loading links
+private data class LoadLinkData(
+    val titleId: String? = null, val episodeId: String? = null, val scwsId: String? = null
+)
+
+private data class Tokens(
+    @JsonProperty("token") var token: String? = null,
+    @JsonProperty("token360p") var token360p: String? = null,
+    @JsonProperty("token480p") var token480p: String? = null,
+    @JsonProperty("token720p") var token720p: String? = null,
+    @JsonProperty("token1080p") var token1080p: String? = null,
+    @JsonProperty("expires") var expires: String? = null
+)
