@@ -78,3 +78,18 @@ class StreamingcommunityProvider : MainAPI() {
         }
         return HomePageResponse(arrayListOf(), hasNext = true)
     }
+
+data class MainPageResponse(
+
+    @JsonProperty("name") var name: String? = null,
+    @JsonProperty("label") var label: String,
+    @JsonProperty("titles") var titles: ArrayList<MainPageTitles> = arrayListOf()
+
+private data class Tokens(
+    @JsonProperty("token") var token: String? = null,
+    @JsonProperty("token360p") var token360p: String? = null,
+    @JsonProperty("token480p") var token480p: String? = null,
+    @JsonProperty("token720p") var token720p: String? = null,
+    @JsonProperty("token1080p") var token1080p: String? = null,
+    @JsonProperty("expires") var expires: String? = null
+)
