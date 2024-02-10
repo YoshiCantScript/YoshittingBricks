@@ -1,17 +1,18 @@
 package com.yoshi
 
 import androidx.appcompat.app.AppCompatActivity
+import com.lagradost.cloudstream3.utils.Qualities
+import com.lagradost.cloudstream3.utils.ExtractorLink
+import com.lagradost.cloudstream3.SubtitleFile
 import com.lagradost.cloudstream3.TvType
 import com.lagradost.cloudstream3.MainAPI
 import com.lagradost.cloudstream3.MainPageData
 import com.lagradost.cloudstream3.SearchResponse
 import com.lagradost.cloudstream3.utils.AppUtils.parseJson
 import com.lagradost.cloudstream3.utils.AppUtils.toJson
+import com.fasterxml.jackson.annotation.JsonProperty
 import org.json.JSONObject
-import com.fasterxml.jackson.annotation.*
-
-
-
+import com.lagradost.cloudstream3.app
 
 class StreamingcommunityProvider : MainAPI() {
     override var mainUrl = "https://streamingcommunity.li"
@@ -35,7 +36,7 @@ override suspend fun loadLinks(
         val document = app.get(
             "${this.mainUrl}/iframe/${dataJson.titleId}?episode_id=${dataJson.episodeId}",
             referer = mainUrl,
-            headers = listOf("User-Agent" to userAgent)
+            headers = mapOf("User-Agent" to userAgent)
         ).document
         val firstStageUrl = document.select("iframe").attr("src")
         val documentVixcloud = app.get(
