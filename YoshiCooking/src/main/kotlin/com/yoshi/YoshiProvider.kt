@@ -38,25 +38,7 @@ class StreamingcommunityProvider : MainAPI() {
     )
    
     
-      override suspend fun getMainPage(
-        page: Int,
-        request: MainPageRequest
-    ): HomePageResponse {
-        val url = request.data + page
-        val home = Jsoup.parse(
-            app.get(
-                url,
-
-                ).parsed<Response>().html!!
-        ).select("div.item").mapNotNull { element ->
-            val title = element.selectFirst(".info > .name") ?: return@mapNotNull null
-            val link = title.attr("href").replace(Regex("/ep.*\$"), "")
-            val poster = element.selectFirst(".poster > a > img")?.attr("src")
-            val meta = element.selectFirst(".poster > a > .meta > .inner > .left")
-            }
-        }
-
-        return newHomePageResponse(request.name, home, true)
+      
     }
     private val userAgent =
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
