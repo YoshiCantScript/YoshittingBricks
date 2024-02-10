@@ -17,27 +17,8 @@ class StreamingcommunityProvider : MainAPI() {
     override val hasChromecastSupport = true
     override var lang = "it"
     override val hasMainPage = true
-    override val mainPage = listOf(
-        MainPageData(
-        "{\"name\":\"trending\",\"genre\":null}" to "I titoli del momento",
-        "{\"name\":\"latest\",\"genre\":null}" to "Aggiunti di recente",
-        "{\"name\":\"top10\",\"genre\":null}" to "Top 10 titoli di oggi",
-        "{\"name\":\"genre\",\"genre\":\"Avventura\"}" to "Avventura",
-        "{\"name\":\"genre\",\"genre\":\"Animazione\"}" to "Animazione",
-        "{\"name\":\"genre\",\"genre\":\"Azione\"}" to "Azione",
-        "{\"name\":\"genre\",\"genre\":\"Action & Adventure\"}" to "Action & Adventure",
-        "{\"name\":\"genre\",\"genre\":\"Famiglia\"}" to "Famiglia",
-        "{\"name\":\"genre\",\"genre\":\"Fantasy\"}" to "Fantasy",
-        "{\"name\":\"genre\",\"genre\":\"Documentario\"}" to "Documentario",
-        "{\"name\":\"genre\",\"genre\":\"Horror\"}" to "Horror",
-        "{\"name\":\"genre\",\"genre\":\"Mistero\"}" to "Mistero",
-        "{\"name\":\"genre\",\"genre\":\"Crime\"}" to "Crimine",
-        "{\"name\":\"genre\",\"genre\":\"Dramma\"}" to "Dramma",
-        "{\"name\":\"genre\",\"genre\":\"Commedia\"}" to "Commedia"
-    )
-)
+   
 
     
     private val userAgent =
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
-}
