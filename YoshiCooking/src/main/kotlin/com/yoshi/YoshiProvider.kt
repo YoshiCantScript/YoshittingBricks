@@ -17,7 +17,7 @@ class StreamingcommunityProvider : MainAPI() {
     override val hasChromecastSupport = true
     override var lang = "it"
     override val hasMainPage = true
-   override val mainPage = listOf(
+    override val mainPage = listOf(
         "{\"name\":\"trending\",\"genre\":null}" to "I titoli del momento",
         "{\"name\":\"latest\",\"genre\":null}" to "Aggiunti di recente",
         "{\"name\":\"top10\",\"genre\":null}" to "Top 10 titoli di oggi",
