@@ -74,16 +74,7 @@ class StreamingcommunityProvider : MainAPI() {
         val poster =
             "$cdnUrl/images/" + parsedJson.props.title.images.filter { it.type == "background" }
                 .map { it.filename }.firstOrNull()
-        val rating = parsedJson.props.title.score?.trim()?.toRatingInt()
-        val recomm =
-            parsedJson.props.sliders.firstOrNull { it.name == "related" }?.titles?.map { it.toSearchResult() }
-        val actors: List<ActorData> =
-            parsedJson.props.title.mainActors.map { ActorData(actor = Actor(it.name)) }
-
-        val trailer =
-            parsedJson.props.title.trailers.map { "https://www.youtube.com/watch?v=${it.youtubeId}" }
-                .randomOrNull()
-
+        
         val titleId = parsedJson.props.title.id.toString()
 
         if (type == TvType.TvSeries) {
@@ -257,11 +248,6 @@ data class LoadTitle(
     @JsonProperty("genres") var genres: ArrayList<Genres> = arrayListOf(),
     @JsonProperty("main_actors") var mainActors: ArrayList<MainActors> = arrayListOf(),
 )
-
-data class Trailers(
-    @JsonProperty("youtube_id") var youtubeId: String? = null,
-)
-
 
 data class Genres(
     @JsonProperty("name") var name: String? = null,
