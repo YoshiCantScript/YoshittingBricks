@@ -8,6 +8,7 @@ import com.lagradost.cloudstream3.SearchResponse
 import com.lagradost.cloudstream3.utils.AppUtils.parseJson
 import com.lagradost.cloudstream3.utils.AppUtils.toJson
 import org.json.JSONObject
+import com.fasterxml.jackson.annotation.*
 
 
 class StreamingcommunityProvider : MainAPI() {
