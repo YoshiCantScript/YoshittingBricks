@@ -11,10 +11,7 @@ import org.json.JSONObject
 import com.fasterxml.jackson.annotation.*
 import com.google.gson.annotations.SerializedName
 
-data class MyClass(
-    @SerializedName("custom_name")
-    val propertyName: String
-)
+
 
 
 class StreamingcommunityProvider : MainAPI() {
