@@ -18,6 +18,7 @@ class StreamingcommunityProvider : MainAPI() {
     override var lang = "it"
     override val hasMainPage = true
     override val mainPage = listOf(
+        MainPageData(
         "{\"name\":\"trending\",\"genre\":null}" to "I titoli del momento",
         "{\"name\":\"latest\",\"genre\":null}" to "Aggiunti di recente",
         "{\"name\":\"top10\",\"genre\":null}" to "Top 10 titoli di oggi",
@@ -34,6 +35,7 @@ class StreamingcommunityProvider : MainAPI() {
         "{\"name\":\"genre\",\"genre\":\"Dramma\"}" to "Dramma",
         "{\"name\":\"genre\",\"genre\":\"Commedia\"}" to "Commedia"
     )
+)
 
     
     private val userAgent =
