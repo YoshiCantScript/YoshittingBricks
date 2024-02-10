@@ -66,6 +66,41 @@ override suspend fun loadLinks(
 
 }
 
+override suspend fun search(query: String): List<SearchResponse> {
+        val url = "$mainUrl/search"
+        val soup = app.get(
+            url, params = mapOf("q" to query), headers = mapOf(
+                "X-Inertia" to "true", "X-Inertia-Version" to "16d7fef7dd27890ede802c00747e79cb"
+            )
+        ).text
+        val responseJson = parseJson<SearchResponseJson>(soup)
+        return responseJson.props.titles.map { it.toSearchResult() }
+    }
+
+    private fun Episodes.toEpisode(titleId: String, season: Int): Episode {
+        val data = LoadLinkData(
+            titleId = titleId, episodeId = this.id.toString(), scwsId = this.scwsId.toString()
+        ).toJson()
+
+        val epNum = this.number
+        val epTitle = this.name
+        val posterUrl =
+            "$cdnUrl/images/" + this.images.filter { it.type == "cover" }.map { it.filename }
+                .firstOrNull()
+        return Episode(data, epTitle, season, epNum, posterUrl = posterUrl)
+    }
+
+
+//For search
+
+data class SearchResponseJson(
+    @JsonProperty("props") var props: Props = Props(),
+)
+
+
+data class Props(
+    @JsonProperty("titles") var titles: ArrayList<MainPageTitles> = arrayListOf(),
+)
 
 
 // for loading links
