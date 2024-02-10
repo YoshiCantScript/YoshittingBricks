@@ -9,7 +9,6 @@ import com.lagradost.cloudstream3.utils.AppUtils.parseJson
 import com.lagradost.cloudstream3.utils.AppUtils.toJson
 import org.json.JSONObject
 import com.fasterxml.jackson.annotation.*
-import com.google.gson.annotations.SerializedName
 
 
 
@@ -22,7 +21,7 @@ class StreamingcommunityProvider : MainAPI() {
     override val hasChromecastSupport = true
     override var lang = "it"
     override val hasMainPage = true
-   override val mainPage = mainPageOf(
+   override val mainPage = listOf(
         "{\"name\":\"trending\",\"genre\":null}" to "I titoli del momento",
         "{\"name\":\"latest\",\"genre\":null}" to "Aggiunti di recente",
         "{\"name\":\"top10\",\"genre\":null}" to "Top 10 titoli di oggi",
