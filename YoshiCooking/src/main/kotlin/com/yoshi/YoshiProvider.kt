@@ -27,14 +27,11 @@ class StreamingcommunityProvider : MainAPI() {
     override var lang = "it"
     override val hasMainPage = true
 
-    override val mainPage = mainPageOf(
-        "$mainUrl/browse/trending" to "Trending",
-        "$mainUrl/browse/latest=" to "Ultimi arrivi",
-        "$mainUrl/browse/genre?g=Commedia" to "Commedia",
-        "$mainUrl/browse/genre?g=Reality" to "Reality",
-        "$mainUrl/browse/genre?g=Avventura" to "Avventura",
-    )
-   
+    override val mainPage = listOf(
+  MainPageData(
+     "Trending",
+      "$mainUrl/browse/trending"
+   ),   
     
       
     
