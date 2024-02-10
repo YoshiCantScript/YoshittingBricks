@@ -109,7 +109,6 @@ class StreamingcommunityProvider : MainAPI() {
             return newMovieLoadResponse(title, data, TvType.Movie, data) {
                 this.year = year?.toIntOrNull()
                 this.plot = description
-                this.actors = actors
                 this.recommendations = recomm
                 this.tags = parsedJson.props.title.genres.mapNotNull { it.name }
                 addPoster(poster)
@@ -232,7 +231,6 @@ data class LoadTitle(
     @JsonProperty("quality") var quality: String? = null,
     @JsonProperty("type") var type: String? = null,
     @JsonProperty("original_name") var originalName: String? = null,
-    @JsonProperty("score") var score: String? = null,
     @JsonProperty("tmdb_id") var tmdbId: Int? = null,
     @JsonProperty("imdb_id") var imdbId: String? = null, //tt11122333
     @JsonProperty("scws_id") var scwsId: Int? = null,
@@ -241,17 +239,10 @@ data class LoadTitle(
     @JsonProperty("seasons_count") var seasonsCount: Int? = null,
     @JsonProperty("seasons") var seasons: ArrayList<Episodes> = arrayListOf(),
     @JsonProperty("images") var images: ArrayList<Images> = arrayListOf(),
-    @JsonProperty("genres") var genres: ArrayList<Genres> = arrayListOf(),
-    @JsonProperty("main_actors") var mainActors: ArrayList<MainActors> = arrayListOf(),
+
 )
 
-data class Genres(
-    @JsonProperty("name") var name: String? = null,
-)
 
-data class MainActors(
-    @JsonProperty("name") var name: String
-)
 
 //for loadlink
 
