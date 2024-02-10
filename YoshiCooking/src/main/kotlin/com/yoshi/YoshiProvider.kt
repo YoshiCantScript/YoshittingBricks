@@ -36,26 +36,6 @@ class StreamingcommunityProvider : MainAPI() {
    ) 
     
 
-    override suspend fun getMainPage(page: Int, request: MainPageRequest): HomePageResponse {
-        val reqlink = request.data
-
-        val home = when (request.name) {
-            "Latest Audiobook"->{
-            val jason = app.get(reqlink).parsed<BookList>()
-
-            jason.books.mapNotNull{
-                //No null saftey goddamit
-                newAnimeSearchResponse(it.title!!, it.url!!, TvType.Anime) {
-                        //this.posterUrl = it.thumbnail
-                                }
-                            }
-                        }
-            else-> emptyList()
-                                    }
-
-            return HomePageResponse(
-            listOf(HomePageList(request.name, home)), hasNext = home.isNotEmpty() )
-        }
 
     private val userAgent =
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
