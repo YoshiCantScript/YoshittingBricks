@@ -73,6 +73,15 @@ override suspend fun search(query: String) List<SearchResponse> {
                 "X-Inertia" to "true", "X-Inertia-Version" to "16d7fef7dd27890ede802c00747e79cb"
             )
         ).text
+ val responseJson = parseJson<SearchResponseJson>(soup)
+        return responseJson.props.titles.map { it.toSearchResult() }
+    }
+
+//For search
+
+data class SearchResponseJson(
+    @JsonProperty("props") var props: Props = Props(),
+)
 
 
 // for loading links
