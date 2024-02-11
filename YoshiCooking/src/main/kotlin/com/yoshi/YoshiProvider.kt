@@ -33,8 +33,28 @@ class StreamingcommunityProvider : MainAPI() {
       "$mainUrl/browse/trending"
    ),   
     
-   ) 
-    
+   )
+
+    override suspend fun getMainPage(page: Int, request: MainPageRequest): HomePageResponse {
+        val reqlink = request.data
+
+        val home = when (request.name) {
+            "Trending"->{
+                val jason = app.get(reqlink).parsed<BookList>()
+
+                jason.books.mapNotNull{
+                    //No null saftey goddamit
+                    newAnimeSearchResponse(it.title!!, it.url!!, TvType.Anime) {
+                        //this.posterUrl = it.thumbnail
+                    }
+                }
+            }
+            else-> emptyList()
+        }
+
+        return HomePageResponse(
+                listOf(HomePageList(request.name, home)), hasNext = home.isNotEmpty() )
+    }
 
 
 
