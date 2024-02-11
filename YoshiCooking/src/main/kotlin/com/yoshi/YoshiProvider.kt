@@ -36,6 +36,34 @@ class StreamingcommunityProvider : MainAPI() {
    ) 
     
 
+// Gogoanime
+override suspend fun getMainPage(
+        page: Int,
+        request : MainPageRequest
+    ): HomePageResponse {
+        // Use the data you defined earlier in the pair to send the request you want.
+        val params = mapOf("page" to page.toString(), "type" to request.data)
+        val html = app.get(
+            "https://streamingommunity.li/browse/trending",
+            headers = headers,
+            params = params
+        )
+        val isSub = listOf(1, 3).contains(request.data.toInt())
+
+        // In this case a regex is used to get all the correct variables
+        // But if you defined the Element.toSearchResponse() earlier you can often times use it on the homepage
+        val home = parseRegex.findAll(html.text).map {
+            val (link, epNum, title, poster) = it.destructured
+            newAnimeSearchResponse(title, link) {
+                this.posterUrl = poster
+                addDubStatus(!isSub, epNum.toIntOrNull())
+            }
+        }.toList()
+
+        // Return a list of search responses mapped to the request name defined earlier.
+        return newHomePageResponse(request.name, home)
+    }
+
 
     private val userAgent =
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
